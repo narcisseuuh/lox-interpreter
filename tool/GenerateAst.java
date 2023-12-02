@@ -16,11 +16,17 @@ public class GenerateAst {
             "Binary : Expr left, Token operator, Expr right",
             "Grouping : Expr expression",
             "Literal : Object value",
+            "Logical : Expr left, Token operator, Expr right",
             "Unary : Token operator, Expr right"
         ));
         defineAst(outputDir, "Stmt", Arrays.asList(
+            "Block : List<Stmt> statements",
             "Expression : Expr expression",
-            "Print : Expr expression"
+            "Function : Token name, List<Token> params," + " List<Stmt> body",
+            "Print : Expr expression",
+            "Return : Token keyword, Expr value",
+            "Var : Token name, Expr initializer",
+            "While : Expr condition, Stmt body"
         ));
     }
 
