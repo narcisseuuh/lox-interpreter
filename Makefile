@@ -1,38 +1,25 @@
 JFLAGS = -g
 JC = javac
-JVM = javac
+JVM = java
+FILE=
 
 .SUFFIXES: .java .class
 
 .java.class:
 	$(JC) $(JFLAGS) $*.java
 
-
-CLASSES = \
-		  src/Lox.java \
-		  src/Scanner.java \
-		  src/TokenType.java \
-		  src/Return.java \
-		  src/Resolver.java \
-		  src/Parser.java \
-		  src/LoxInstance.java \
-		  src/LoxFunction.java \
-		  src/LoxClass.java \
-		  src/LoxCallable.java \
-		  src/Interpreter.java \
-		  src/Environment.java \
-		  src/AstPrinter.java \
-		  lib/GenerateAst.java
-
 MAIN = Lox	  
 
 default: classes
 
-classes: $(CLASSES:.java=.class)
+classes:
+	$(JC) lox/*.java
+	$(JC) tool/*.java
 
 clean:
-	$(RM) *.class
+	$(RM) lox/*.class
+	$(RM) tool/*.class
 	
 run:
 	$(MAIN).class
-	$(JVM)$(MAIN)
+	$(JVM)$(MAIN)$(FILE)

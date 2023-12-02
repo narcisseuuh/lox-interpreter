@@ -1,11 +1,11 @@
-package com.craftinginterpreters.lox;
+package lox_interpreter.lox;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.craftinginterpreters.lox.TokenType.*;
+import static lox_interpreter.lox.TokenType.*;
 
 
 class Scanner {
@@ -135,7 +135,7 @@ class Scanner {
     private void string() {
         while (peek() != '"' && !isAtEnd()) {
             if (peek() == '\n') line++;
-            advance():
+            advance();
         }
 
 

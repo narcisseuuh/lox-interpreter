@@ -1,4 +1,4 @@
-package com.craftinginterpreters.tool;
+package lox_interpreter.tool;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,6 +17,10 @@ public class GenerateAst {
             "Grouping : Expr expression",
             "Literal : Object value",
             "Unary : Token operator, Expr right"
+        ));
+        defineAst(outputDir, "Stmt", Arrays.asList(
+            "Expression : Expr expression",
+            "Print : Expr expression"
         ));
     }
 

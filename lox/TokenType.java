@@ -1,4 +1,4 @@
-package com.craftinginterpreters.lox;
+package lox_interpreter.lox;
 
 enum TokenType {
     // single characters :
@@ -19,22 +19,4 @@ enum TokenType {
     PRINT, RETURN, SUPER, THIS, TRUE, VAR, WHILE,
 
     EOF
-}
-
-class Token {
-    final TokenType type;
-    final String lexeme;
-    final Object literal;
-    final int line;
-
-    Token(TokenType type, String lexeme, Object literal, int line) {
-        this.type = type;
-        this.lexem = lexeme;
-        this.literal = literal;
-        this.line = line;
-    }
-
-    public String toString() {
-        return type + " " + lexeme + " " + litteral;
-    }
 }
