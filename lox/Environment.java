@@ -57,4 +57,14 @@ class Environment {
         }
         throw new RuntimeError(name, "Undefined variable '" + name.lexeme + "'.");
     }
+
+    @Override
+    public String toString() {
+        String result = values.toString();
+        if (enclosing != null) {
+            result += " -> " + enclosing.toString();
+        }
+
+        return result;
+    }
 }

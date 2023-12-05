@@ -90,10 +90,6 @@ class Scanner {
                 line++;
                 break;
             case '"': string(); break;
-            case 'o':
-                if (peek() == 'r') {
-                    addToken(OR);
-                }
                 break;
             default:
                 if (isDigit(c)) {
@@ -182,8 +178,7 @@ class Scanner {
     }
 
     private char advance() {
-        current++;
-        return source.charAt(current - 1);
+        return source.charAt(current++);
     }
 
     private void addToken(TokenType type) {

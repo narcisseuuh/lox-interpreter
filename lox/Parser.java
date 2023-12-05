@@ -25,7 +25,7 @@ class Parser {
     }
 
     private Expr expression() {
-        return equality();
+        return assignment();
     }
 
     private Stmt declaration() {
@@ -43,6 +43,13 @@ class Parser {
 
     private Stmt classDeclaration() {
         Token name = consume(IDENTIFIER, "Expect class name.");
+
+        Expr.Variable superclass = null;
+        if (match(LESS)) {
+            consume(IDENTIFIER, "Expect superclass name.");
+            superclass = new Expr.Variable(previous());
+        }
+
         consume(L_BRA, "Expect '{' before class body.");
 
         List<Stmt.Function> methods = new ArrayList<>();
@@ -51,7 +58,7 @@ class Parser {
         }
 
         consume(R_BRA, "Expect '}' after class body.");
-        return new Stmt.Class(name, methods);
+        return new Stmt.Class(name, superclass, methods);
     }
 
     private Stmt statement() {
@@ -191,7 +198,7 @@ class Parser {
             statements.add(declaration());
         }
 
-        consume(RIGHT_BRACE, "Expect '}' after block.");
+        consume(R_BRA, "Expect '}' after block.");
         return statements;
     }
 
@@ -334,6 +341,12 @@ class Parser {
         if (match(NUMBER, STRING)) {
             return new Expr.Literal(previous().literal);
         }
+        if (match(SUPER)) {
+            Token keyword = previous();
+            consume(DOT, "Expect '.' after 'super'.");
+            Token method = consume(IDENTIFIER, "Expect superclass method name.");
+            return new Expr.Super(keyword, method);
+        }
         if (match(THIS)) return new Expr.This(previous());
         if (match(IDENTIFIER)) {
             return new Expr.Variable(previous());
@@ -391,7 +404,7 @@ class Parser {
         return new ParseError();
     }
 
-    private void synchronize() {
+    private void synchronise() {
         advance();
 
         while(!isAtEnd()) {
